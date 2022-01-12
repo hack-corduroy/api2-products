@@ -78,11 +78,10 @@ ADD CONSTRAINT fk_photos_style_id FOREIGN KEY (style_id) REFERENCES styles (id);
 ------------------------------
 -- CREATE INDEXES
 ------------------------------
-CREATE INDEX related_current_product_id ON related(current_product_id)
-CREATE INDEX related_current_product_id ON related(related_product_id)
+CREATE INDEX related_current_product_id ON related(current_product_id);
+CREATE INDEX related_related_product_id ON related(related_product_id);
+CREATE INDEX features_product_id ON features(product_id);
+CREATE INDEX styles_product_id ON styles(product_id);
+CREATE INDEX photos_style_id ON photos(style_id);
+CREATE INDEX skus_style_id ON skus(style_id);
 
-CREATE INDEX photos_style_id ON photos(style_id)
-CREATE INDEX skus_style_id ON skus(style_id)
-
-CREATE INDEX features_product_id ON photos(style_id)
-CREATE INDEX styles_product_id ON photos(style_id)
