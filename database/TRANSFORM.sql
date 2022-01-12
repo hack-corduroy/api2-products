@@ -74,3 +74,15 @@ DELETE FROM photos WHERE id IN (select id from null_ids);
 
 ALTER TABLE photos
 ADD CONSTRAINT fk_photos_style_id FOREIGN KEY (style_id) REFERENCES styles (id);
+
+------------------------------
+-- CREATE INDEXES
+------------------------------
+CREATE INDEX related_current_product_id ON related(current_product_id)
+CREATE INDEX related_current_product_id ON related(related_product_id)
+
+CREATE INDEX photos_style_id ON photos(style_id)
+CREATE INDEX skus_style_id ON skus(style_id)
+
+CREATE INDEX features_product_id ON photos(style_id)
+CREATE INDEX styles_product_id ON photos(style_id)
