@@ -1,7 +1,7 @@
 -- Runnings
 -- psql -d products -f database/SCHEMA.sql
 
-DROP TABLE IF EXISTS products, related, features, photos, features, styles, skus;
+DROP TABLE IF EXISTS products, related, features, photos, features, styles, skus CASCADE
 
 -- \copy products from './csv/cleansed.product.csv'
 -- \copy related from './csv/cleansed.related.csv'
