@@ -4,6 +4,9 @@ const { splitCSVLine, extractNumber } = require('../lib/csv.js');
 
 //reads the filename line by line
 const parseFile = async (filename, start, callback) => {
+  process.stdout.write(
+    'parsing file: ' + filename + new Array(12 - filename.length).fill(' ').join('')
+  );
   const file = readline.createInterface({
     input: fs.createReadStream(__dirname + '/../csv/' + filename),
     output: process.stdout,
@@ -22,11 +25,12 @@ const parseFile = async (filename, start, callback) => {
         ids[arr[0]] = true;
       }
     }
-    if (index % 10000 === 0) {
-      console.log(filename, index);
+    if (index % 500000 === 0) {
+      process.stdout.write('.');
     }
   }
   logger.end();
+  process.stdout.write('\n');
 };
 
 const main = async () => {
