@@ -1,19 +1,21 @@
 const fs = require('fs');
 const readline = require('readline');
-const { splitCSVLine, extractNumber } = require('../lib/csv.js');
+const { splitCSVLine, extractNumber } = require('../../lib/csv.js');
 
-//reads the filename line by line
+/************************************
+ * GENERAL PURPOSE FILE PARSER
+ *************************************/
 const parseFile = async (filename, start, callback) => {
   process.stdout.write(
     'parsing file: ' + filename + new Array(12 - filename.length).fill(' ').join('')
   );
   const file = readline.createInterface({
-    input: fs.createReadStream(__dirname + '/../csv/' + filename),
+    input: fs.createReadStream(__dirname + '/csv/' + filename),
     output: process.stdout,
     terminal: false,
   });
 
-  const logger = fs.createWriteStream(__dirname + '/../csv/cleansed.' + filename);
+  const logger = fs.createWriteStream(__dirname + '/csv/cleansed.' + filename);
 
   index = 0;
   let ids = {};
@@ -32,6 +34,10 @@ const parseFile = async (filename, start, callback) => {
   logger.end();
   process.stdout.write('\n');
 };
+
+/************************************
+ * PARSE EACH OF THE FILES
+ *************************************/
 
 const main = async () => {
   // Parse Products

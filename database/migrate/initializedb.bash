@@ -1,11 +1,11 @@
 echo "----------------------"
 echo "Initializing DB Schema"
 echo "----------------------"
-psql -d products -f ./database/SCHEMA.sql
+psql -d products -f ./SCHEMA.sql
 echo "----------------------"
 echo "Running Juice Cleanse"
 echo "----------------------"
-node ./database/cleanse.js
+node ./cleanse.js
 echo "----------------------"
 echo "Copying Tables to PSQL"
 echo "----------------------"
@@ -31,7 +31,13 @@ psql  -d products -c "\copy skus from './csv/cleansed.skus.csv'"
 echo "----------------------"
 echo "DE-DUPING / ADDING XKY"
 echo "----------------------"
-psql -d products -f ./database/TRANSFORM.sql
+psql -d products -f ./TRANSFORM.sql
+
+
+echo "----------------------"
+echo "Cleaning Up"
+echo "----------------------"
+rm -rf ./csv/cleansed*.csv
 
 echo "----------------------"
 echo "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
