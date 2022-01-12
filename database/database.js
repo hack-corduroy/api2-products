@@ -6,10 +6,10 @@ const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_P
 const pool = new Pool({ connectionString: connectionString });
 
 const db = {
-  getProducts: async () => {
+  getProducts: async (page = 1, limit = 50) => {
     const sql = `
       SELECT id, name, slogan, description, category, default_price
-      FROM products LIMIT 50;
+      FROM products OFFSET ${(page - 1) * limit} LIMIT ${limit};
       `;
     let data = await pool.query(sql);
     return data.rows;
@@ -28,7 +28,7 @@ const db = {
       where p.id = ${id};
       `;
     let data = await pool.query(sql);
-    return data.rows;
+    return data.rows[0];
   },
   getProductStyles: async (id) => {
     const sql = `
@@ -55,7 +55,7 @@ const db = {
     `;
 
     let data = await pool.query(sql);
-    return data.rows;
+    return data.rows[0];
   },
   getRelated: async (id) => {
     const sql = `
@@ -67,4 +67,4 @@ const db = {
   },
 };
 
-module.exports = db;
+module.exports = { db, pool };

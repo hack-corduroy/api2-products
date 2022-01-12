@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-const db = require('../database/database.js');
+const { db } = require('../database/database.js');
 
 app.get('/hello', async (req, res) => {
   res.json({ hello: 'world' });
