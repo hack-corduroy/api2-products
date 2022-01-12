@@ -84,4 +84,4 @@ CREATE INDEX features_product_id ON features(product_id);
 CREATE INDEX styles_product_id ON styles(product_id);
 CREATE INDEX photos_style_id ON photos(style_id);
 CREATE INDEX skus_style_id ON skus(style_id);
-
+CREATE INDEX product_id_asc ON products (id ASC);
