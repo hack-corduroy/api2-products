@@ -9,7 +9,7 @@ const db = {
   getProducts: async (page = 1, limit = 50) => {
     const sql = `
       SELECT id, name, slogan, description, category, default_price
-      FROM products OFFSET ${(page - 1) * limit} LIMIT ${limit};
+      FROM products ORDER BY id ASC OFFSET ${37310 + (page - 1) * limit} LIMIT ${limit};
       `;
     let data = await pool.query(sql);
     return data.rows;

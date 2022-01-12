@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
-
+const cors = require('cors');
 const { db } = require('../database/database.js');
+
+const PORT = 3000
+app.use(cors());
 
 app.get('/hello', async (req, res) => {
   res.json({ hello: 'world' });
