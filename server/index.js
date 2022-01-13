@@ -3,8 +3,12 @@ const app = express();
 const cors = require('cors');
 const { db } = require('../database/database.js');
 
-const PORT = 3000
+const PORT = 3000;
 app.use(cors());
+
+app.get('/loaderio-7489276b295bbca6259f9144349ee896.txt', (req, res) => {
+  res.send('loaderio-7489276b295bbca6259f9144349ee896');
+});
 
 app.get('/hello', async (req, res) => {
   res.json({ hello: 'world' });
