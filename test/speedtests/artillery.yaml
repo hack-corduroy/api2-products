@@ -2,7 +2,7 @@ config:
   target: 'http://localhost:3000'
   phases:
     - duration: 30
-      arrivalRate: 1000
+      arrivalRate: 500
 
 scenarios:
   - name: 'Retrieve data'
@@ -13,5 +13,11 @@ scenarios:
           url: '/products/37831/styles'
       - get:
           url: '/products/37381/related'
+      - get:
+          url: '/products/37381'
+      - get:
+          url: '/products/37381'
+      - get:
+          url: '/products/37381'
       - get:
           url: '/products/37381'
