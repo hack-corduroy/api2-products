@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --verbose",
     "start-dev": "nodemon server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "artillery": "artillery run test/speedtests/artillery.yaml"
   },
   "repository": {
     "type": "git",
