@@ -7,9 +7,11 @@ const pool = new Pool({ connectionString: connectionString });
 
 const db = {
   getProducts: async (page = 1, limit = 50) => {
+    const start = (page - 1) * limit;
+    const end = start + limit;
     const sql = `
       SELECT id, name, slogan, description, category, default_price
-      FROM products ORDER BY id ASC OFFSET ${37310 + (page - 1) * limit} LIMIT ${limit};
+      FROM products where id > ${start} AND id <= ${end} order by id
       `;
     let data = await pool.query(sql);
     return data.rows;
