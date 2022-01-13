@@ -29,20 +29,47 @@ app.get('/products', async (req, res) => {
 
 app.get('/products/:id', async (req, res) => {
   const id = req.params.id;
-  const data = await db.getProduct(id);
-  res.json(data);
+  const cached = c.get('product', key);
+
+  if (cached !== null) {
+    console.log('send back a cache');
+    res.json(cached);
+  } else {
+    console.log('needed to hit the DB');
+    const data = await db.getProduct(id);
+    res.json(data);
+    c.add('product', id, data);
+  }
 });
 
 app.get('/products/:id/styles', async (req, res) => {
   const id = req.params.id;
-  const data = await db.getProductStyles(id);
-  res.json(data);
+  const cached = c.get('styles', key);
+
+  if (cached !== null) {
+    console.log('send back a cache');
+    res.json(cached);
+  } else {
+    console.log('needed to hit the DB');
+    const data = await db.getProductStyles(id);
+    res.json(data);
+    c.add('styles', id, data);
+  }
 });
 
 app.get('/products/:id/related', async (req, res) => {
-  //const id = req.params.id;
-  //const data = await db.getRelated(id);
-  res.status(200).send(data);
+  const id = req.params.id;
+  const cached = c.get('related', key);
+
+  if (cached !== null) {
+    console.log('send back a cache');
+    res.status(200).send(cached);
+  } else {
+    console.log('needed to hit the DB');
+    const data = await db.getRelated(id);
+    res.status(200).send(data);
+    c.add('related', id, data);
+  }
 });
 
 app.listen(PORT, () => {
