@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors');
 const { db } = require('../database/database.js');
 
-let requests = 0;
 const PORT = 3000;
 app.use(cors());
 
@@ -16,7 +15,6 @@ app.get('/hello', async (req, res) => {
 });
 
 app.get('/products', async (req, res) => {
-  console.log('hi - ' + requests++);
   const data = await db.getProducts();
   res.json(data);
 });
