@@ -1,42 +1,80 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
+/****************************
+ * EXPRESS
+ ****************************/
+
+// const express = require('express');
+// const app = express();
+// const cors = require('cors');
+// const { db } = require('../database/database.js');
+
+// const PORT = 3000;
+// app.use(cors());
+
+// app.get('/products', async (req, res) => {
+//   const data = await db.getProducts();
+//   res.json(data);
+// });
+
+// app.get('/products/:id', async (req, res) => {
+//   const id = req.params.id;
+//   const data = await db.getProduct(id);
+//   res.json(data);
+// });
+
+// app.get('/products/:id/styles', async (req, res) => {
+//   const id = req.params.id;
+//   const data = await db.getProductStyles(id);
+//   res.json(data);
+// });
+
+// app.get('/products/:id/related', async (req, res) => {
+//   const id = req.params.id;
+//   const data = await db.getRelated(id);
+//   res.status(200).send(data);
+// });
+
+// app.listen(PORT, () => {
+//   console.log('Server is running at http://localhost:' + PORT);
+// });
+
+/****************************
+ * Fastify
+ ****************************/
+
+const fastify = require('fastify')({ logger: false });
 const { db } = require('../database/database.js');
 
-const PORT = 3000;
-app.use(cors());
-
-app.get('/loaderio-7489276b295bbca6259f9144349ee896.txt', (req, res) => {
-  res.send('loaderio-7489276b295bbca6259f9144349ee896');
-});
-
-app.get('/hello', async (req, res) => {
-  res.json({ hello: 'world' });
-});
-
-app.get('/products', async (req, res) => {
+fastify.get('/products', async function (request, reply) {
   const data = await db.getProducts();
-  res.json(data);
+  reply.send(data);
 });
 
-app.get('/products/:id', async (req, res) => {
-  const id = req.params.id;
+fastify.get('/products/:id', async function (request, reply) {
+  const id = request.params.id;
   const data = await db.getProduct(id);
-  res.json(data);
+  reply.send(data);
 });
 
-app.get('/products/:id/styles', async (req, res) => {
-  const id = req.params.id;
+fastify.get('/products/:id/styles', async function (request, reply) {
+  const id = request.params.id;
   const data = await db.getProductStyles(id);
-  res.json(data);
+  return data;
 });
 
-app.get('/products/:id/related', async (req, res) => {
-  const id = req.params.id;
+fastify.get('/products/:id/related', async function (request, reply) {
+  const id = request.params.id;
   const data = await db.getRelated(id);
-  res.status(200).send(data);
+  return data;
 });
 
-app.listen(PORT, () => {
-  console.log('Server is running at http://localhost:' + PORT);
-});
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen(3000);
+    console.log('listening on 3000');
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
+start();
