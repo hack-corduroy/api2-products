@@ -1,11 +1,17 @@
+/***********************************
+ * Database.js
+ * Connects to postgres database and runs queries for express server
+ ***********************************/
+
 require('dotenv').config({ path: '.env' });
 const { Pool } = require('pg');
 
 const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
-
 const pool = new Pool({ connectionString: connectionString });
 
+//Export a db object that has the 4 query functions to return in index.js
 const db = {
+  //Returns a paginated list of products
   getProducts: async (page = 1, limit = 50) => {
     const start = (page - 1) * limit;
     const end = start + limit;
@@ -16,6 +22,7 @@ const db = {
     let data = await pool.query(sql);
     return data.rows;
   },
+  //Returns a single product
   getProduct: async (id) => {
     const sql = `
       SELECT
@@ -32,6 +39,7 @@ const db = {
     let data = await pool.query(sql);
     return data.rows[0];
   },
+  //Returns the styles for a given product
   getProductStyles: async (id) => {
     const sql = `
       WITH temp as (
@@ -59,6 +67,7 @@ const db = {
     let data = await pool.query(sql);
     return data.rows[0];
   },
+  //returns an array of related products
   getRelated: async (id) => {
     const sql = `
       SELECT json_agg(related_product_id) as ids FROM related
