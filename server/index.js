@@ -29,7 +29,7 @@ app.get('/products', async (req, res) => {
 
 app.get('/products/:id', async (req, res) => {
   const id = req.params.id;
-  const cached = c.get('product', key);
+  const cached = c.get('product', id);
 
   if (cached !== null) {
     console.log('send back a cache');
@@ -44,7 +44,7 @@ app.get('/products/:id', async (req, res) => {
 
 app.get('/products/:id/styles', async (req, res) => {
   const id = req.params.id;
-  const cached = c.get('styles', key);
+  const cached = c.get('styles', id);
 
   if (cached !== null) {
     console.log('send back a cache');
@@ -59,7 +59,7 @@ app.get('/products/:id/styles', async (req, res) => {
 
 app.get('/products/:id/related', async (req, res) => {
   const id = req.params.id;
-  const cached = c.get('related', key);
+  const cached = c.get('related', id);
 
   if (cached !== null) {
     console.log('send back a cache');
