@@ -1,5 +1,5 @@
 class Cache {
-  constructor() {
+  constructor(maxItems = 1000) {
     this.ids = {
       products: [],
       related: [],
@@ -12,7 +12,7 @@ class Cache {
       styles: {},
       product: {},
     };
-    this.max = 1000;
+    this.max = maxItems;
   }
 
   add(query, id, data) {
@@ -35,6 +35,15 @@ class Cache {
   //FOR DEBUGGING ONLY, DONT RUN IN PRODUCTION
   size() {
     return JSON.stringify(this.data).length;
+  }
+
+  count() {
+    return (
+      this.ids.products.length +
+      this.ids.related.length +
+      this.ids.styles.length +
+      this.ids.product.length
+    );
   }
 }
 

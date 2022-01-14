@@ -1,8 +1,9 @@
 config:
-  target: 'http://ec2-3-90-239-173.compute-1.amazonaws.com:3000'
+  #target: 'http://ec2-3-90-239-173.compute-1.amazonaws.com:3000'
+  target: 'http://localhost:3000'
   phases:
     - duration: 30
-      arrivalRate: 250
+      arrivalRate: 100
 
   payload:
     path: 'ids.csv'
@@ -13,7 +14,7 @@ scenarios:
   - name: 'Retrieve data'
     flow:
       - get:
-          url: '/products?page={{id}}&count=10'
+          url: '/products?page={{id}}'
       - get:
           url: '/products/{{id}}/styles'
       - get:
