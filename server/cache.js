@@ -55,8 +55,8 @@ class Cache {
         this.ids.product.length,
       kb: JSON.stringify(this.data).length / 1000,
       totalRequests: this.requests[2],
-      dbRequests: this.requests[1],
-      cachedRequests: this.requests[0],
+      dbRequests: this.requests[0],
+      cachedRequests: this.requests[1],
     };
   }
 }

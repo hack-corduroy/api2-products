@@ -25,6 +25,7 @@ app.get('/products', async (req, res) => {
   const cached = c.get('products', key);
 
   if (cached !== null) {
+    c.logRequest(1);
     res.json(cached);
   } else {
     c.logRequest(0);
@@ -57,7 +58,6 @@ app.get('/products/:id/styles', async (req, res) => {
     c.logRequest(1);
     res.json(cached);
   } else {
-    c.logRequest(1);
     c.logRequest(0);
     const data = await db.getProductStyles(id);
     res.json(data);
