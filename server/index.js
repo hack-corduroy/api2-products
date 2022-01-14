@@ -14,6 +14,10 @@ app.get('/cache', async (req, res) => {
   res.json(c.stats());
 });
 
+app.get('/loaderio-7489276b295bbca6259f9144349ee896.txt', (req, res) => {
+  res.send('loaderio-7489276b295bbca6259f9144349ee896');
+});
+
 app.get('/products', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const count = parseInt(req.query.count) || 50;
