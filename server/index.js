@@ -4,7 +4,7 @@ const cors = require('cors');
 const { db } = require('../database/database.js');
 const Cache = require('./cache.js');
 
-const c = new Cache(2000);
+const c = new Cache(10000);
 
 const PORT = 3000;
 app.use(cors());
@@ -23,6 +23,7 @@ app.get('/products', async (req, res) => {
   if (cached !== null) {
     res.json(cached);
   } else {
+    c.logRequest(0);
     const data = await db.getProducts(page, count);
     res.json(data);
     c.add('products', key, data);
@@ -34,8 +35,10 @@ app.get('/products/:id', async (req, res) => {
   const cached = c.get('product', id);
 
   if (cached !== null) {
+    c.logRequest(1);
     res.json(cached);
   } else {
+    c.logRequest(0);
     const data = await db.getProduct(id);
     res.json(data);
     c.add('product', id, data);
@@ -47,8 +50,11 @@ app.get('/products/:id/styles', async (req, res) => {
   const cached = c.get('styles', id);
 
   if (cached !== null) {
+    c.logRequest(1);
     res.json(cached);
   } else {
+    c.logRequest(1);
+    c.logRequest(0);
     const data = await db.getProductStyles(id);
     res.json(data);
     c.add('styles', id, data);
@@ -60,8 +66,10 @@ app.get('/products/:id/related', async (req, res) => {
   const cached = c.get('related', id);
 
   if (cached !== null) {
+    c.logRequest(1);
     res.status(200).send(cached);
   } else {
+    c.logRequest(0);
     const data = await db.getRelated(id);
     res.status(200).send(data);
     c.add('related', id, data);

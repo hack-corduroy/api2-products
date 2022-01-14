@@ -13,6 +13,12 @@ class Cache {
       product: {},
     };
     this.max = maxItems;
+    this.requests = [0, 0, 0];
+  }
+
+  logRequest(i) {
+    this.requests[i]++;
+    this.requests[2]++;
   }
 
   add(query, id, data) {
@@ -48,6 +54,9 @@ class Cache {
         this.ids.styles.length +
         this.ids.product.length,
       kb: JSON.stringify(this.data).length / 1000,
+      totalRequests: this.requests[2],
+      dbRequests: this.requests[1],
+      cachedRequests: this.requests[0],
     };
   }
 }

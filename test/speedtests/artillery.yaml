@@ -1,9 +1,15 @@
 config:
-  #target: 'http://ec2-3-90-239-173.compute-1.amazonaws.com:3000'
-  target: 'http://localhost:3000'
+  ## API1
+  target: 'http://ec2-3-90-239-173.compute-1.amazonaws.com:3000'
+
+  ## API2
+  #target: 'http://ec2-34-227-192-223.compute-1.amazonaws.com:3000'
+
+  #LOCALHOST
+  #target: 'http://localhost:3000'
   phases:
-    - duration: 30
-      arrivalRate: 250
+    - duration: 120
+      arrivalRate: 100
 
   payload:
     path: 'ids.csv'
