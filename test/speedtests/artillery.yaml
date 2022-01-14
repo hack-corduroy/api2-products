@@ -3,7 +3,7 @@ config:
   target: 'http://localhost:3000'
   phases:
     - duration: 30
-      arrivalRate: 100
+      arrivalRate: 250
 
   payload:
     path: 'ids.csv'

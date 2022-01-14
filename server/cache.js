@@ -16,7 +16,7 @@ class Cache {
   }
 
   add(query, id, data) {
-    if (this.data[query][id]) {
+    if (this.data[query][id] !== undefined) {
       return;
     }
 
@@ -33,17 +33,22 @@ class Cache {
   }
 
   //FOR DEBUGGING ONLY, DONT RUN IN PRODUCTION
-  size() {
-    return JSON.stringify(this.data).length;
-  }
-
-  count() {
-    return (
-      this.ids.products.length +
-      this.ids.related.length +
-      this.ids.styles.length +
-      this.ids.product.length
-    );
+  stats() {
+    return {
+      max: this.max,
+      sizes: {
+        products: this.ids.products.length,
+        product: this.ids.product.length,
+        related: this.ids.related.length,
+        styles: this.ids.styles.length,
+      },
+      total:
+        this.ids.products.length +
+        this.ids.related.length +
+        this.ids.styles.length +
+        this.ids.product.length,
+      kb: JSON.stringify(this.data).length / 1000,
+    };
   }
 }
 

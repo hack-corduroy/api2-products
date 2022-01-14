@@ -5,3 +5,4 @@ csv/
 
 package-lock.json
 pino-logger.log
+ids.csv
