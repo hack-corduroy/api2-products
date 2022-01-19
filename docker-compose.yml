@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  db:
+    build: database/
+    ports:
+      - '4321:5432'
+  server:
+    build: .
+    ports:
+      - '3000:8080'

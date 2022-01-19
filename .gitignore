@@ -8,3 +8,6 @@ pino-logger.log
 ids.csv
 
 *.zip
+
+DATA.sql
+INIT.sql
