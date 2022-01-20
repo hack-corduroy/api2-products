@@ -1,0 +1,1 @@
+pg_dump -h localhost --no-privileges --no-owner products >> DATA.sql

@@ -1,1 +1,0 @@
-pg_restore -U sieke --dbname=products --no-owner DATA.tar.gz

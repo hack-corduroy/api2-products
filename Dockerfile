@@ -7,6 +7,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+COPY .env_docker .env
 
 ENV PORT=8080
 
