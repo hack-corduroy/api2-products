@@ -21,7 +21,7 @@ const db = {
         return true;
       } catch (err) {
         console.log('>>>>>ERROR CONNECTING TO DB, retrying:', retries);
-        await sleep(10000);
+        await sleep(30000);
       }
       retries--;
     }

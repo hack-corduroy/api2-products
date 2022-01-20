@@ -6,16 +6,21 @@ const Cache = require('./cache.js');
 
 const c = new Cache(10000);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
+const MESSAGE = process.env.MESSAGE || 'default message';
+
 app.use(cors());
 app.use(express.json());
 
-app.get('/cache', async (req, res) => {
-  res.json(c.stats());
+app.get('/', async (req, res) => {
+  res.json({
+    message: MESSAGE,
+    date: new Date(),
+  });
 });
 
-app.get('/loaderio-7489276b295bbca6259f9144349ee896.txt', (req, res) => {
-  res.send('loaderio-7489276b295bbca6259f9144349ee896');
+app.get('/cache', async (req, res) => {
+  res.json(c.stats());
 });
 
 app.get('/products', async (req, res) => {
