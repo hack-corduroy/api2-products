@@ -5,12 +5,29 @@
 
 require('dotenv').config({ path: '.env' });
 const { Pool } = require('pg');
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
-const pool = new Pool({ connectionString: connectionString });
+let pool = new Pool();
 
 //Export a db object that has the 4 query functions to return in index.js
 const db = {
+  connect: async () => {
+    let retries = 20;
+    while (retries) {
+      try {
+        pool = new Pool();
+        await pool.query('SELECT count(1) from products');
+        console.log('>>>CONNECTED TO DB');
+        return true;
+      } catch (err) {
+        console.log('>>>>>ERROR CONNECTING TO DB, retrying:', retries);
+        await sleep(10000);
+      }
+      retries--;
+    }
+    return false;
+  },
+
   //Returns a paginated list of products
   getProducts: async (page = 1, limit = 50) => {
     const start = (page - 1) * limit;

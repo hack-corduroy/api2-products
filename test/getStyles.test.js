@@ -1,4 +1,4 @@
-const { db, pool } = require('../database/database.js');
+const { db, pool } = require('../server/database.js');
 
 describe('Unit Tests: /products/:id/styles endpoint', () => {
   it('It should be a styles shaped object', async () => {

@@ -1,4 +1,4 @@
-const { db, pool } = require('../database/database.js');
+const { db, pool } = require('../server/database.js');
 
 describe('Unit Tests: /products', () => {
   it('It should default to 50 items if no parameters passed', async () => {

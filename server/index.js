@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const { db } = require('../database/database.js');
+const { db } = require('./database.js');
 const Cache = require('./cache.js');
 
 const c = new Cache(10000);
@@ -80,6 +80,7 @@ app.get('/products/:id/related', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await db.connect();
   console.log('Server is running at http://localhost:' + PORT);
 });
