@@ -1,1 +1,1 @@
-pg_dump -h localhost --no-privileges --no-owner products >> DATA.sql
+pg_dump -h localhost -U sieke --no-privileges --no-owner products >> DATA.sql
