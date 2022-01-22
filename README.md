@@ -32,10 +32,10 @@ node -e "console.log('Running Node.js ' + process.version)"
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 sudo -u postgres psql
-create database products
-create user sieke with encrypted password 'temp'
+create database products;
+create user sieke with encrypted password 'temp';
 grant all privileges on database products to sieke;
-psql -U sieke -d products -h localhost
+psql -U sieke -d products -h localhost;
 
 ##Transfer files to AWS
 cd ~/Desktop
